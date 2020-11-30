@@ -1,0 +1,31 @@
+body{
+  background-color: rgba(198, 224, 247, 0.707);
+  padding: 10px;
+}
+
+.contenido{
+  margin-top: 10px;
+  display: flex;
+  border: 3px solid red;
+  padding: 10px;
+  justify-content: space-around;
+
+}
+
+.aside{
+  color: rgb(0, 0, 255);
+  padding: 10px;
+  text-align: center;
+  min-width: 200px;
+  border: 3px solid black;
+ 
+  
+  
+}
+.main{
+  border: 3px solid yellow;
+  margin-left: 10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 0, 0.234);
+
+}
