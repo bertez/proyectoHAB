@@ -1,8 +1,12 @@
+const { default: Auth } = require("./Auth");
 
 
 function Menu() {
     return (
-        <div>MENU</div>
+        <div>
+            <h2>Menu</h2>
+            <Auth />
+        </div>
     )
 }
 

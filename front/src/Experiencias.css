@@ -2,4 +2,13 @@
     background-color: rgba(237, 95, 95, 0.268);
     padding: 5px;
     list-style: none;
+    display: flex;
+    justify-content: space-around;
+    vertical-align: middle;
+}
+
+.experiencias-img{
+    width: 100px;
+    height: 100px;
+
 }

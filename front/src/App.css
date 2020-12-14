@@ -1,5 +1,5 @@
 body{
-  background-color: rgba(198, 224, 247, 0.707);
+
   padding: 10px;
 }
 
@@ -17,15 +17,20 @@ body{
   padding: 10px;
   text-align: center;
   min-width: 200px;
-  border: 3px solid black;
+  
  
   
   
 }
 .main{
-  border: 3px solid yellow;
+  
   margin-left: 10px;
   padding: 10px;
-  background-color: rgba(255, 255, 0, 0.234);
+  
 
+}
+
+.App-logo {
+  height: 20vmin;
+  pointer-events: none;
 }

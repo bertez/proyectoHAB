@@ -1,18 +1,11 @@
 .App-header{
     padding: 10px;
-    border: 3px solid rgba(78, 163, 189, 0.261);
-    display: flex;
-    justify-content: space-around;
-   
-    
+    text-align: center;
 }
 
-.App-header h2 {
-    margin: 0px;
-    
-}
+
 
 .logo{
-    width: 20px;
-    height: 20px;
+    width: 150px;
+    height: 150px;
 }
