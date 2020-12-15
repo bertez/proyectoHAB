@@ -1,8 +1,11 @@
 
+import { Router, Switch } from 'react-router-dom';
+import Acordeon from './Acordeon';
 import './App.css';
 import Header from './Header';
-import Menu from './Menu';
-import Experiencias from './Experiencias';
+import Acordeon from './Acordeon';
+import Experiencias from './routes/Experiencias';
+import Auth from './user/Auth';
 
 
 function App() {
@@ -10,18 +13,11 @@ function App() {
     <div className="App">
       <div>
       <Header />
+      <Acordeon>
+            <Auth/>
+          </Acordeon>
       </div>
-      <div className="contenido">
-      <aside className="aside">
-        <Menu/>
-      </aside>
-      <main className="main">
-        <Experiencias />
-        <Experiencias />
-        <Experiencias />
-        <Experiencias />
-      </main>
-      </div>
+
       
     </div>
 

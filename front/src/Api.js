@@ -1,10 +1,10 @@
 import useFetch from './useFetch'
 
-export const useUserList = () => useFetch('http://hab.trek-quest.com/users')
-export const useUserById = (id) => useFetch('http://hab.trek-quest.com/users/' + id)
+export const useExperienceList = () => useFetch('http://localhost:8080/experience')
+export const useExperienceById = (id) => useFetch('http://localhost:8080/experience/' + id)
 
 export const login = async (username, password) => {
-  const ret = await fetch('http://hab.trek-quest.com/login', {
+  const ret = await fetch('http://localhost:8080/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password })
@@ -14,7 +14,7 @@ export const login = async (username, password) => {
 }
 
 export const register = async (username, password, email) => {
-  const ret = await fetch('http://hab.trek-quest.com/register', {
+  const ret = await fetch('http://localhost:8080/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password, email })
@@ -23,14 +23,27 @@ export const register = async (username, password, email) => {
   return data
 }
 
-export const edit = async (token, id, newUser) => {
-  const ret = await fetch('http://hab.trek-quest.com/users/' + id, {
+export const createCommentary = async (token, id, newCommentary) => {
+  const ret = await fetch('http://localhost:8080/commentary/' + id, {
     method: 'PUT',
     headers: {
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(newUser)
+    body: JSON.stringify(newCommentary)
+  })
+  const data = await ret.json()
+  return data
+}
+
+export const createExperience = async (token, id, newExperience) => {
+  const ret = await fetch('http://localhost:8080/experience/' + id, {
+    method: 'Post',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newExperience)
   })
   const data = await ret.json()
   return data

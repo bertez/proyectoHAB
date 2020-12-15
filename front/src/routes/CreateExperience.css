@@ -1,0 +1,13 @@
+.create-experience {
+    border: 1px solid #ccc;
+  }
+  
+  .create-experience label {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .create-experience button {
+    display: block;
+    margin: auto;
+  }
