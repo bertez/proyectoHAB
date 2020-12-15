@@ -1,0 +1,23 @@
+.topbar {
+    flex: 0 0 35px;
+    background-color: white;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .topbar img {
+    vertical-align: middle;
+    border-radius: 100%;
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+  }
+  
+  .topbar a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }

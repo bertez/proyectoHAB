@@ -24,20 +24,20 @@ export const register = async (username, password, email) => {
 }
 
 export const createCommentary = async (token, id, newCommentary) => {
-  const ret = await fetch('http://localhost:8080/commentary/' + id, {
-    method: 'PUT',
+  const ret = await fetch('http://localhost:8080/commentary', {
+    method: 'Post',
     headers: {
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(newCommentary)
   })
-  const data = await ret.json()
-  return data
+  const commentary = await ret.json()
+  return commentary
 }
 
 export const createExperience = async (token, id, newExperience) => {
-  const ret = await fetch('http://localhost:8080/experience/' + id, {
+  const ret = await fetch('http://localhost:8080/experience' , {
     method: 'Post',
     headers: {
       'Authorization': 'Bearer ' + token,
@@ -45,6 +45,6 @@ export const createExperience = async (token, id, newExperience) => {
     },
     body: JSON.stringify(newExperience)
   })
-  const data = await ret.json()
-  return data
+  const experience = await ret.json()
+  return experience
 }
