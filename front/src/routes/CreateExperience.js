@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { edit } from '../api'
-import { useUser } from '../UserContext'
+import { createExperience } from '../Api'
+import { useUser } from '../user/UserContext'
 import './CreateExperience.css'
 
 function CreateExperience({ experience }) {
@@ -12,7 +12,7 @@ function CreateExperience({ experience }) {
 
   const handleSubmit = async e => {
     e.preventDefault()
-    await edit(me.token, experience.id, { name, tipo, descripcion })
+    await createExperience(me.token, experience.id, { name, tipo, descripcion })
   }
 
   return (

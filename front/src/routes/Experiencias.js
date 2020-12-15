@@ -1,4 +1,5 @@
 import useFetch from '../useFetch'
+import ExperienceViewer from './ExperienceViewer'
 import './Experiencias.css'
 
 function Experiencias() {
@@ -10,7 +11,7 @@ function Experiencias() {
       {!experiences && 'Cargando...'}
       {experiences &&
         <div>
-          {experiences}
+          <ExperienceViewer/>
         </div>
         
       }
