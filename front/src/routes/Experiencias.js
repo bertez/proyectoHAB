@@ -3,10 +3,10 @@ import ExperienceViewer from './ExperienceViewer'
 import './Experiencias.css'
 
 function Experiencias() {
-  const experiences = useFetch('http://localhost:8080/experience')
+  const experiences = useFetch('http://localhost:3000/experiences')
 
   return (
-    <div className="section experiences">
+    <div className="section_experiences">
       
       {!experiences && 'Cargando...'}
       {experiences &&

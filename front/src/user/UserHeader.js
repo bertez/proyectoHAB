@@ -1,7 +1,7 @@
 import { useUser } from './UserContext'
 import './Header.css'
 import { Link } from 'react-router-dom'
-
+import UserNav from './UserNav'
 function Header() {
   const me = useUser()
 
@@ -18,6 +18,7 @@ function Header() {
           </span>
         </div>
       }
+      <UserNav/>
     </header>
   )
 }

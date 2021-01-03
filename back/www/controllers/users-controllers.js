@@ -14,44 +14,7 @@ async function getUsers(req, res) {
   }
 }
 
-async function createUser(req, res) {
-  try {
 
-    const { name, email, password } = req.body;
-
-    const userSchema = Joi.object({
-      name: Joi.string(),
-      email: Joi.string().email().required(),
-      password: Joi.string().min(6).max(20).required(),
-    });
-
-    await userSchema.validateAsync({ name, email, password });
-
-    const query = 'SELECT * FROM users WHERE email = ?';
-    const [users] = await database.pool.query(query, email);
-
-    if (users.length) {
-      const err = new Error('Ya existe un usuario con ese email');
-      err.code = 409;
-      throw err;
-    }
-
-    const passwordHash = await bcrypt.hash(password, 10);
-    const insertQuery = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)';
-    const [rows] = await database.pool.query(insertQuery, [name, email, passwordHash]);
-
-    const createdId = rows.insertId;
-
-    const selectQuery = 'SELECT * FROM users WHERE id = ?';
-    const [selectRows] = await database.pool.query(selectQuery, createdId);
-
-    res.send(selectRows[0]);
-
-  } catch (err) {
-    res.status(err.code || 500);
-    res.send({ error: err.message })
-  }
-}
 
 async function login(req, res) {
   try {
@@ -110,23 +73,17 @@ async function register(req, res) {
       name,
       email,
       password,
-      repeatedPassword,
     } = req.body;
 
     const registerSchema = Joi.object({
       name: Joi.string(),
       email: Joi.string().email().required(),
       password: Joi.string().min(6).max(20).required(),
-      repeatedPassword: Joi.string().min(6).max(20).required(),
     });
 
     await registerSchema.validateAsync(req.body);
 
-    if (password !== repeatedPassword) {
-      const err = new Error('Los password no coinciden');
-      err.code = 400;
-      throw err;
-    }
+   
 
     const query = 'SELECT * FROM users WHERE email = ?';
     const [users] = await database.pool.query(query, email);
@@ -151,7 +108,7 @@ async function register(req, res) {
 }
 
 module.exports = {
-  createUser,
+  
   getUsers,
   login,
   register

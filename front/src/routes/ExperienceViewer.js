@@ -1,5 +1,4 @@
 import { useExperienceById } from '../Api'
-import CreateExperience from './CreateExperience'
 import { useParams } from 'react-router-dom'
 
 function ExperienceViewer() {
@@ -15,7 +14,7 @@ function ExperienceViewer() {
         <li>{experience.tipo}</li>
         <li>{experience.descripcion}</li>
       </ul>
-      <CreateExperience key={experience.id} experience={experience} />
+      
     </div>
   )
 }

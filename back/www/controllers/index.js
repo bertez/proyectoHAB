@@ -1,9 +1,9 @@
 const experiencesController = require('./experiences-controller');
 const usersController = require('./users-controllers');
-const commentaryControllers = require('./commentary-controllers');
+const reviewsControllers = require('./reviews-controllers');
 
 module.exports = {
     experiencesController,
     usersController,
-    commentaryControllers
+    reviewsControllers
 };

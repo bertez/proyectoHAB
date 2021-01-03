@@ -6,7 +6,7 @@ function Acordeon({ children }) {
   return (
     <div className="acordeon">
       <button onClick={() => setShow(!show)}>
-        {show ? 'Ver menos' : 'Ver más'}
+        {show ? 'x' : 'LOGIN'}
       </button>
       {show &&
         <div>

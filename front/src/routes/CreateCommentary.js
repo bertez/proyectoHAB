@@ -16,7 +16,7 @@ function CreateComentary() {
 
   return (
     <div className="create-commentary">
-      <h3>Edit commentary:</h3>
+      <h3>create commentary:</h3>
       <form onSubmit={handleSubmit}>
         <label>
           Texto:

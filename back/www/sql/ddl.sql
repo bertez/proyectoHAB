@@ -1,39 +1,38 @@
-use proyecto_experience;
+USE api_viajes;
 
-create table users (
-id int unsigned primary key auto_increment,
-name varchar (50) not null,
-email varchar (50)not null unique,
-password varchar(128) not null
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `experiences` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) DEFAULT NULL,
+  `tipo` varchar(255) DEFAULT NULL,
+  `imagen` varchar(255) DEFAULT NULL,
+  `descripcion` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `review` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `experience_id` int NOT NULL,
+  `rating` int NOT NULL,
+  `text` varchar(511) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE,
+  FOREIGN KEY (experience_id)
+    REFERENCES experiences(id)
+    ON DELETE CASCADE
 );
 
 
-create table multimedia (
-id int unsigned primary key auto_increment,
-video varchar(50),
-foto varchar (50),
-location varchar(50),
-id_experience int unsigned,
-foreign key (id_experience) references experience(id)
-);
-
-create table experience (
-id int unsigned primary key auto_increment,
-nombre varchar (50),
-tipo varchar (50),
-descripcion varchar (500),
-id_users int unsigned,
-foreign key (id_users) references users(id)
-);
-create table commentary (
-id int unsigned primary key auto_increment,
-texto varchar(500),
-fecha_comentario timestamp default current_timestamp,
-id_users int unsigned,
-foreign key (id_users) references users(id),
-id_experience int unsigned,
-foreign key (id_experience) references experience(id)
-);
 
 
 INSERT INTO users (name, email, password) VALUES 
@@ -47,7 +46,7 @@ INSERT INTO users (name, email, password) VALUES
 
 
 
-INSERT INTO experience (nombre, tipo, descripcion) VALUES 
+INSERT INTO experiences (nombre, tipo, descripcion) VALUES 
  ("comer en galicia", "gastronomia", "lorem"),
  ("ruta de vinos", "gastronomia", "lorem"),
  ("ruta courel", "senderismo", "lorem"),

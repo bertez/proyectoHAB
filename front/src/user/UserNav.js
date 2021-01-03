@@ -1,16 +1,18 @@
+import Profile from './Profile'
+import Experiencias from '../routes/Experiencias'
+import CreateExperience from '../routes/CreateExperience'
 
-
-
-function UserNav(){
+function UserNav({tab,setTab}){
+    const tabs = ['mi perfil', 'crear experiencia', 'experiencias']
 
     return(
         <div className="user-nav">
-            <ul className="nav-list">
-                <li>mi perfil</li>
-                <li>crear experiencia</li>
-                <li>experiencias</li>
-            </ul>
+            <Profile/>
+            <Experiencias/>
+            <CreateExperience/>
         </div>
 
     );
 }
+
+export default UserNav
