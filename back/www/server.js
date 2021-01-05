@@ -28,7 +28,7 @@ app.post('/api/users/register', usersController.register);
 //reviews
 
 app.get('/api/reviews/:userId', validateAuthorization, reviewsControllers.getReviewsByUserId);
-app.post('/api/reviews/:restaurantId', validateAuthorization, reviewsControllers.createReview);
+app.post('/api/reviews/:experienceId', validateAuthorization, reviewsControllers.createReview);
 app.put('/api/reviews/:reviewId', validateAuthorization, reviewsControllers.updateReview);
 
 

@@ -28,7 +28,7 @@ async function createReview(req, res) {
    
     const { id } = req.auth;
     const { rating, text } = req.body;
-
+    
     const schema = Joi.object({
       rating: Joi.number().min(1).max(5).required(),
       text: Joi.string().min(1).max(500),
@@ -39,8 +39,8 @@ async function createReview(req, res) {
     const selectQuery = 'SELECT * FROM experiences WHERE id = ?';
     
     const [experiences] = await database.pool.query(selectQuery, [experienceId]);
-
-    if (!experiences || !experiences.length) {
+    console.log(experiences);
+    if (!experiences || experiences.length === 0) {
       const err = new Error('la experiencia no existe');
       err.code = 404;
       throw err;
@@ -54,7 +54,7 @@ async function createReview(req, res) {
     const { insertId } = result;
 
     const query = 'SELECT * FROM review WHERE id = ?';
-    const [reviews] = await database.pool.query(query, insertId);
+    const [reviews] = await database.pool.query(query, [insertId]);
 
     res.status(201);
     res.send(reviews[0]);

@@ -14,24 +14,24 @@ async function getExperiences(req, res) {
 
 async function getScore(req, res) {
   try {
-    const { restaurantId } = req.params;
+    const { experienceId } = req.params;
 
-    const query = 'SELECT name FROM restaurants WHERE id = ?';
-    const [restaurants] = await database.pool.query(query, restaurantId);
+    const query = 'SELECT name FROM experiences WHERE id = ?';
+    const [experiences] = await database.pool.query(query, [experienceId]);
 
-    if (!restaurants || !restaurants.length) {
-      const err = new Error('Restaurante no encontrado');
+    if (!experiences || experiences.length === 0) {
+      const err = new Error('experiencia no encontrada');
       err.code = 404;
       throw err;
     }
 
-    const reviewsQuery = 'SELECT * FROM review WHERE restaurant_id = ?';
-    const [reviews] = await database.pool.query(reviewsQuery, restaurantId);
+    const reviewsQuery = 'SELECT * FROM review WHERE experience_id = ?';
+    const [reviews] = await database.pool.query(reviewsQuery, experienceId);
 
     const avgRating = (reviews.reduce((sum, review) => sum + review.rating, 0)) / reviews.length;
 
     res.send({
-      name: restaurants[0].name,
+      name: experiences[0].name,
       rating: avgRating.toFixed(4),
     });
 
