@@ -1,11 +1,14 @@
 require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const {
-    experiencesController, 
-    usersController, 
-    reviewsControllers
+	
+	usersController, 
+	reviewsControllers
 } = require('./controllers');
+
+const endPoints = require('./endpoints/endpoints')
 const cors = require('cors');
 
 const { validateAuthorization } = require('./middlewares');
@@ -13,11 +16,13 @@ const { validateAuthorization } = require('./middlewares');
 const { HTTP_PORT } = process.env;
 
 const app = express();
+
 app.use(cors());
 app.use(bodyParser.json());
 //endpoints
 //experiences
-app.get('/api/experiences',experiencesController.getExperiences);
+// app.get('/api/experiences',experiencesController.getExperiences);
+app.get('/api/experiences', endPoints.getExperiences );
 
 //users
 app.get('/api/users', usersController.getUsers);
