@@ -12,50 +12,31 @@ async function getExperiences(req, res) {
 };
 
 
-async function getExperiencesById(req, res) {
+async function getScore(req, res) {
   try {
-    const [experiences] = await database.pool.query('SELECT id FROM experiences ');
-    res.send(experiences);
-  } catch (err) {
-    res.status(500);
-    res.send({ error: err.message });
-  }
-};
+    const { restaurantId } = req.params;
 
-  
+    const query = 'SELECT name FROM restaurants WHERE id = ?';
+    const [restaurants] = await database.pool.query(query, restaurantId);
 
-
-async function createExperience(req, res) {
-
-
-  try {
-    const{ nombre, tipo, descripcion}=req.body;
-
-    const schema = Joi.object({
-      nombre: Joi.string().required(),
-      tipo: Joi.string(),
-      descripcion: Joi.string(),
-    });
-
-    await schema.validateAsync({ nombre,tipo,descripcion });
-
-    const selectQuery = 'SELECT * FROM experience WHERE nombre = ?';
-    const [experiences] = await database.pool.query(selectQuery, nombre);
-
-    if (experiences || experiences.length) {
-      const err = new Error('La experiencia ya existe');
-      err.code = 409;
+    if (!restaurants || !restaurants.length) {
+      const err = new Error('Restaurante no encontrado');
+      err.code = 404;
       throw err;
     }
 
-    const insertQuery = 'INSERT INTO experiences ( nombre,tipo,descripcion) VALUES (?,?,?)';
-    const [experiences] = await database.pool.query(insertQuery, [ nombre, tipo, descripcion]);
+    const reviewsQuery = 'SELECT * FROM review WHERE restaurant_id = ?';
+    const [reviews] = await database.pool.query(reviewsQuery, restaurantId);
 
-    res.status(201);
-    res.send(experience[0]);
+    const avgRating = (reviews.reduce((sum, review) => sum + review.rating, 0)) / reviews.length;
+
+    res.send({
+      name: restaurants[0].name,
+      rating: avgRating.toFixed(4),
+    });
 
   } catch (err) {
-    res.status(res.code || 500);
+    res.status(err.code || 500);
     res.send({ error: err.message });
   }
 }
@@ -67,6 +48,5 @@ async function createExperience(req, res) {
 
 module.exports = {
   getExperiences,
-  getExperiencesById,
-  createExperience
+  getScore
 };

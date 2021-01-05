@@ -9,22 +9,23 @@ const { database } = require('../infrastructure');
  * en req.auth.id
  */
 async function createReview(req, res) {
-  // recuperar id del restaurante => req.params.restaurantId
+  // recuperar id del experiencia => req.params.experienceId
   // recuperar id del usuario => req.auth.id
   // recuperar datos de la review => req.body
   // { rating: Number, text: String }
 
   // 1. validar datos del body
-  // 2. comprobar que existe el restaurante
+  // 2. comprobar que existe el experiencia
   // 3. insertar la review en bbdd
   // 4. devolver la review insertada en la response
 
   // const userId = req.auth.id;
   // const { id } = req.auth;
-  // req.params.restaurantId
+  // req.params.experienceId
 
   try {
     const { experienceId } = req.params;
+   
     const { id } = req.auth;
     const { rating, text } = req.body;
 
@@ -36,7 +37,8 @@ async function createReview(req, res) {
     await schema.validateAsync({ rating, text });
 
     const selectQuery = 'SELECT * FROM experiences WHERE id = ?';
-    const [experiences] = await database.pool.query(selectQuery, experienceId);
+    
+    const [experiences] = await database.pool.query(selectQuery, [experienceId]);
 
     if (!experiences || !experiences.length) {
       const err = new Error('la experiencia no existe');
@@ -45,7 +47,9 @@ async function createReview(req, res) {
     }
 
     const insertQuery = 'INSERT INTO review (user_id, experience_id, rating, text) VALUES (?, ?, ?, ?)';
+    
     const [result] = await database.pool.query(insertQuery, [id, experienceId, rating, text]);
+    
 
     const { insertId } = result;
 
@@ -90,7 +94,7 @@ async function getReviewsByUserId(req, res) {
     }
 
     const query = 'SELECT * FROM review WHERE user_id = ?';
-    const [reviews] = await database.pool.query(query, userId);
+    const [reviews] = await database.pool.query(query,[userId] );
     res.send(reviews);
 
   } catch (err) {

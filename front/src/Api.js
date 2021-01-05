@@ -1,7 +1,7 @@
 import useFetch from './useFetch'
 
-export const useExperienceList = () => useFetch('http://localhost:3000/experiences')
-export const useExperienceById = (id) => useFetch('http://localhost:3000/experience/' + id)
+export const useExperienceList = () => useFetch('http://localhost:3000/api/experiences')
+export const useExperienceById = (id) => useFetch('http://localhost:3000/api/experiences/' + id)
 
 export const login = async (username, password) => {
   const ret = await fetch('http://localhost:3000/api/users/login', {
