@@ -2,6 +2,7 @@
     padding: 10px;
     display: flex;
     justify-content: space-around;
+    background-color: rgb(237, 144, 111);
 }
 
 
@@ -9,4 +10,11 @@
 .logo{
     width: 750px;
     height: 750px;
+}
+
+.userName{
+    color: black;
+    width: 100px;
+    height: 50;
+    padding: 5px;
 }

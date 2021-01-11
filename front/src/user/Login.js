@@ -1,29 +1,32 @@
 import { useState } from "react"
-import { useSetUser } from "./UserContext"
+import { login } from '../Api'
+import { useSetUser, useUser } from "./UserContext"
 
 function Login() {
+  const me = useUser()
   const setMe = useSetUser()
-
-  const [user, setUser] = useState({})
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+ 
   const [error, setError] = useState()
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    fetch('http://localhost:3000/users/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(user)
-    })
-      .then(res => res.json())
-      .then(data => {
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    const data = await login(email,password);
+    
+     
         if (data.token) {
           setMe(data)
         } else {
           setError(data.error || true)
         }
-      })
-      .catch(e => setError(true))
-  }
+      }
+      if(!setMe){
+        return "loading"
+      }
+      
+  
 
   return (
     <form onSubmit={handleSubmit}>
@@ -31,23 +34,19 @@ function Login() {
          name="email"
          type="email"
          placeholder="Email..."
-         value={user.email || ''}
-         onChange={e => setUser({ ...user, email: e.target.value })}
+        
+         onChange={e => setEmail(e.target.value )}
       />
       <input
         name="password"
         type="password"
         required
         placeholder="Contraseña..."
-        value={user.password || ''}
-        onChange={e => setUser({ ...user, password: e.target.value })}
+        
+        onChange={e => setPassword(  e.target.value )}
       />
       <button>Entrar</button>
-      {error &&
-        <div className="error">
-          {error === true ? 'Error de registro' : error}
-        </div>
-      }
+   
     </form>
   )
 }

@@ -28,8 +28,6 @@ async function login(req, res) {
 
     await schema.validateAsync({ email, password });
 
-   
-
     const query = 'SELECT * FROM users WHERE email = ?';
     const [rows] = await database.pool.query(query, email);
 
@@ -40,8 +38,6 @@ async function login(req, res) {
     }
 
     const user = rows[0];
-
-    
 
     const isValidPassword = await bcrypt.compare(password, user.password);
 

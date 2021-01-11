@@ -1,4 +1,6 @@
 const Joi = require('joi');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const { database } = require('../infrastructure');
 

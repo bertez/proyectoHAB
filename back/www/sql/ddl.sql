@@ -10,11 +10,15 @@ CREATE TABLE `users` (
 
 CREATE TABLE `experiences` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `tipo` varchar(255) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `descripcion` varchar(1000) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE,
 );
 
 CREATE TABLE `review` (
@@ -35,20 +39,8 @@ CREATE TABLE `review` (
 
 
 
-INSERT INTO users (name, email, password) VALUES 
- ("antonio", "antonio@mail.com", "password1"),
- ("luis", "luis@mail.com", "password2"),
- ("sofia", "sofia@mail.com", "password3"),
- ("Manuel", "manuel@mail.com", "password4"),
- ("iria", "iria@mail.com", "password5");
+
  
 
 
 
-
-INSERT INTO experiences (nombre, tipo, descripcion) VALUES 
- ("comer en galicia", "gastronomia", "lorem"),
- ("ruta de vinos", "gastronomia", "lorem"),
- ("ruta courel", "senderismo", "lorem"),
- ("escalade Irun", "escalada", "lorem"),
- ("submarinismo", "acuatica", "lorem");

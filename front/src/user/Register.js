@@ -26,6 +26,13 @@ function Register() {
   }
   return (
     <form onSubmit={handleSubmit}>
+      <input
+        name="name"
+        type="text"
+        placeholder="nombre..."
+        value={user.name || ''}
+        onChange={e => setUser({ ...user, name: e.target.value })}
+      />
     <input
         name="email"
         type="email"
@@ -36,17 +43,14 @@ function Register() {
       <input
         name="password"
         type="password"
-        required
+        
         placeholder="Contraseña..."
         value={user.password || ''}
         onChange={e => setUser({ ...user, password: e.target.value })}
       />
       <button>Registro</button>
-      {error &&
-        <div className="error">
-          {error === true ? 'Error de registro' : error}
-        </div>
-      }
+      
+      
     </form>
   )
 }

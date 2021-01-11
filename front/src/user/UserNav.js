@@ -2,12 +2,12 @@ import Profile from './Profile'
 import Experiencias from '../routes/Experiencias'
 import CreateExperience from '../routes/CreateExperience'
 
-function UserNav({tab,setTab}){
-    const tabs = ['mi perfil', 'crear experiencia', 'experiencias']
+function UserNav(){
+    
 
     return(
         <div className="user-nav">
-            <Profile/>
+            
             <Experiencias/>
             <CreateExperience/>
         </div>
