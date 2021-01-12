@@ -1,19 +1,10 @@
 import useFetch from './useFetch'
 
-/* export const useExperienceList = async (nombre, tipo,descripcion) => {
-   const ret = await fetch('http://localhost:3000/api/experiences', {
-     method: 'GET',
-     headers: { 'Content-Type': 'application/json' },
-     body: JSON.stringify({ nombre,tipo, descripcion })
-  })
-  const data = await ret.json()
-   return data
- } */
+
 
 export const useExperienceList = () => useFetch('http://localhost:3000/api/experiences')
 
-//export const useExperienceById = (id) => useFetch('http://localhost:3000/api/experiences/' + id)
-//export const useUserList = (id) => useFetch('http://localhost/api/users/' + id)
+export const useExperienceById = (id) => useFetch('http://localhost:3000/api/experiences/' + id)
 export const useUserById = (id) => useFetch('http://localhost/api/users/' + id)
 
 
@@ -51,18 +42,24 @@ export const createCommentary = async (token, id, newCommentary) => {
   return commentary
 }
 
-export const createExperience = async (token, id, newExperience) => {
-  const ret = await fetch('http://localhost:3000/experience/create' , {
-    method: 'Post',
-    headers: {
-      'Authorization': 'Bearer ' + token,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newExperience)
+export const createExperience = async (token,experienceId, nombre, tipo, imagen, descripcion) => {
+
+  const fd = new FormData()
+  fd.append('experienceId', experienceId);
+  fd.append('nombre', nombre);
+  fd.append('tipo', tipo);
+  fd.append('imagen', imagen);
+  fd.append('descripcion', descripcion);
+
+  const ret = await fetch('http://localhost:3000/api/experiences/create', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token },
+      body: fd
   })
-  const experience = await ret.json()
-  return experience
+  const data = await ret.json();
+  return data;
 }
+
 export const editExperience = async (token, id, newExperience) => {
   const ret = await fetch('http://localhost:3000/experience/' + id, {
     method: 'PUT',
@@ -74,4 +71,14 @@ export const editExperience = async (token, id, newExperience) => {
   })
   const data = await ret.json()
   return data
+}
+
+export const deleteExperience = async (id) => {
+  const ret = await fetch('http://localhost:3000/api/experiences/deteleExperiences', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id })
+  })
+  const data = await ret.json();
+  return data;
 }
