@@ -13,9 +13,8 @@ async function getExperiences(req, res) {
 		res.send({ error: err.message });
 	}
 };
-async function getExperiencesByUserId(req, res) {
-  
 
+async function getExperiencesByUserId(req, res) {
 	try {
 	  const { userId } = req.params;
 	  
@@ -26,8 +25,21 @@ async function getExperiencesByUserId(req, res) {
 	  }
   
 	  const query = 'SELECT * FROM experiences WHERE user_id = ?';
-	  const [reviews] = await database.pool.query(query,[userId] );
-	  res.send(reviews);
+	  const [experiences] = await database.pool.query(query,[userId] );
+	  res.send(experiences);
+  
+	} catch (err) {
+	  res.status(err.code || 500);
+	  res.send({ error: err.message });
+	}
+  }
+
+  async function getExperiencesByLocation(req, res) {
+	try {
+	  const { localizacion} = req.params;
+	  const query = 'SELECT * FROM experiences WHERE localizacion = ?';
+	  const [experiences] = await database.pool.query(query,[localizacion] );
+	  res.send(experiences);
   
 	} catch (err) {
 	  res.status(err.code || 500);
@@ -40,11 +52,12 @@ async function getExperiencesByUserId(req, res) {
 async function createExperience(req, res) {
 
 	try {
-		const { nombre, tipo, descripcion } = req.body;
+		const { nombre, tipo, descripcion, localizacion } = req.body;
+		
 		const { id } = req.auth;
-		const insertQuery = 'INSERT INTO experiences ( user_id, nombre, tipo, descripcion) VALUES ( ?,?, ?, ?)';
+		const insertQuery = 'INSERT INTO experiences ( user_id, nombre, tipo, descripcion, localizacion) VALUES ( ?,?, ?, ?, ?)';
 
-		const [result] = await database.pool.query(insertQuery, [id, nombre, tipo, descripcion]);
+		const [result] = await database.pool.query(insertQuery, [id, nombre, tipo, descripcion, localizacion]);
 
 		const  createId = result.insertId
 		let imageName;
@@ -91,7 +104,7 @@ async function getScore(req, res) {
 
 		res.send({
 			name: experiences[0].name,
-			rating: avgRating.toFixed(4),
+			rating: avgRating.toFixed(5),
 		});
 
 	} catch (err) {
@@ -108,6 +121,7 @@ async function getScore(req, res) {
 module.exports = {
 	getExperiences,
 	getExperiencesByUserId,
+	getExperiencesByLocation,
 	createExperience,
 	getScore
 };

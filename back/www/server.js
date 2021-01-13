@@ -32,7 +32,9 @@ app.use(bodyParser.json());
 //app.get('/api/experiences/experiencesId/:id',endPoints.getExperienceById);
 //app.post('/api/experiences/create',endPoints.createExperience);
 app.get('/api/experiences',experiencesController.getExperiences);
+app.get('/api/experiences/:experienceId/score',experiencesController.getScore);
 app.get('/api/experiences/:userId', validateAuthorization, experiencesController.getExperiencesByUserId);
+app.get('/api/experiences/:localizacion',experiencesController.getExperiencesByLocation);
 app.post('/api/experiences/create', validateAuthorization, upload.single('imagen'),experiencesController.createExperience);
 
 //users
@@ -51,7 +53,7 @@ app.post('/api/users/register', usersController.register);
 app.get('/api/reviews/:userId', validateAuthorization, reviewsControllers.getReviewsByUserId);
 app.post('/api/reviews/:experienceId', validateAuthorization, reviewsControllers.createReview);
 app.put('/api/reviews/:reviewId', validateAuthorization, reviewsControllers.updateReview);
-app.delete('/api/articles/deteleReview', validateAuthorization, reviewsControllers.deleteReview)
+app.delete('/api/reviews/deleteReview', validateAuthorization, reviewsControllers.deleteReview)
 
 
 app.listen(HTTP_PORT, ()=>console.log('escuchando'));
