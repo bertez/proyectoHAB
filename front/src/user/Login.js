@@ -1,7 +1,8 @@
 import { useState } from "react"
+import{ Link, Redirect } from 'react-router-dom'
 import { login } from '../Api'
 import { useSetUser, useUser } from "./UserContext"
-
+import './Login.css';
 function Login() {
   const me = useUser()
   const setMe = useSetUser()
@@ -26,10 +27,14 @@ function Login() {
         return "loading"
       }
       
-  
+
+  if (me) {
+    return <Redirect to="/" />
+  }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="login">
+    <form className="formulario-login" onSubmit={handleSubmit}>
       <input
          name="email"
          type="email"
@@ -45,9 +50,12 @@ function Login() {
         
         onChange={e => setPassword(  e.target.value )}
       />
-      <button>Entrar</button>
-   
+      <button className = "buttonLogin">Entrar</button>
+      <p className="linkRegister">
+        No tienes cuenta? <Link to="/register">Regístrate</Link>
+      </p>
     </form>
+    </div>
   )
 }
 

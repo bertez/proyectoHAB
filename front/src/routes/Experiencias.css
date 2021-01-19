@@ -1,24 +1,36 @@
 .experiencias{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    
+}
+
+.experiencias h2{
+    margin-top: 30px;
+}
+
+.experiencias a{
     border: 1px solid black;
     border-radius: 20px;
     background-color: rgb(189, 218, 240);
-    min-width: 250px;
+    min-width: 300px;
     margin: auto;
     margin-bottom: 10px;
     margin-top: 10px;
     padding: 10px;
     max-width: 300px;
     text-align: center;
+    display: flex;
+    text-decoration: none;
+    color: white;
 }
 
 .imagen{
-    width: 150px;
-    height: 100px;
-    background-size: contain;
+    width: 270px;
+    height: 250px;
+    background-size: cover;
     background-repeat: no-repeat;
     margin: 0px auto;
 }
 
-.descricpcion-exp{
-    padding: 5px;
-}
+

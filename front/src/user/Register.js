@@ -1,7 +1,9 @@
-import { useState } from "react"
-import { useSetUser } from "./UserContext"
-
+import { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { useSetUser, useUser } from "./UserContext";
+import './Register.css';
 function Register() {
+  const me = useUser()
   const setMe = useSetUser()
 
   const [user, setUser] = useState({})
@@ -24,8 +26,14 @@ function Register() {
       })
       .catch(e => setError(true))
   }
+
+  if (me) {
+    return <Redirect to="/" />
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
+    
+    <form className="formulario-register" onSubmit={handleSubmit}>
       <input
         name="name"
         type="text"
@@ -52,6 +60,7 @@ function Register() {
       
       
     </form>
+    
   )
 }
 

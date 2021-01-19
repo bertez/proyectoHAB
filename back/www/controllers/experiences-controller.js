@@ -14,20 +14,28 @@ async function getExperiences(req, res) {
 	}
 };
 
-async function getExperiencesByUserId(req, res) {
+async function getExperience(req, res) {
 	try {
-	  const { userId } = req.params;
-	  
-	  if (Number(userId) !== req.auth.id) {
-		const err = new Error('El usuario no tiene permisos');
-		err.code = 403;
-		throw err;
-	  }
-  
+		const { id } = req.params;
+
+		const query = 'SELECT * FROM experiences where id = ?';
+		const [experiences] = await database.pool.query(query, [id]);
+		res.send(experiences[0]);
+	} catch (err) {
+		res.status(500);
+		res.send({ error: err.message });
+	}
+};
+
+async function getExperiencesUserId(req, res) {
+	try {
+		const  {id } = req.auth;
+		console.log('Id de auth', id);
 	  const query = 'SELECT * FROM experiences WHERE user_id = ?';
-	  const [experiences] = await database.pool.query(query,[userId] );
+	  const [experiences] = await database.pool.query(query,[id] );
+	  res.status(201)
 	  res.send(experiences);
-  
+	  console.log(experiences);
 	} catch (err) {
 	  res.status(err.code || 500);
 	  res.send({ error: err.message });
@@ -40,6 +48,20 @@ async function getExperiencesByUserId(req, res) {
 	  const query = 'SELECT * FROM experiences WHERE localizacion = ?';
 	  const [experiences] = await database.pool.query(query,[localizacion] );
 	  res.send(experiences);
+	  
+  
+	} catch (err) {
+	  res.status(err.code || 500);
+	  res.send({ error: err.message });
+	}
+  }
+  async function getExperiencesByTipo(req, res) {
+	try {
+	  const { tipo} = req.params;
+	  const query = 'SELECT * FROM experiences WHERE tipo = ?';
+	  const [experiences] = await database.pool.query(query,[tipo] );
+	  res.send(experiences);
+	  console.log(experiences);
   
 	} catch (err) {
 	  res.status(err.code || 500);
@@ -52,7 +74,7 @@ async function getExperiencesByUserId(req, res) {
 async function createExperience(req, res) {
 
 	try {
-		const { nombre, tipo, descripcion, localizacion } = req.body;
+		const { nombre, tipo, descripcion , localizacion} = req.body;
 		
 		const { id } = req.auth;
 		const insertQuery = 'INSERT INTO experiences ( user_id, nombre, tipo, descripcion, localizacion) VALUES ( ?,?, ?, ?, ?)';
@@ -74,7 +96,7 @@ async function createExperience(req, res) {
 		
 
 		res.status(201);
-		res.send(query[0]);
+		res.send(query[0][0]);
 
 	} catch (err) {
 		res.status(res.code || 500);
@@ -91,11 +113,7 @@ async function getScore(req, res) {
 		const query = 'SELECT name FROM experiences WHERE id = ?';
 		const [experiences] = await database.pool.query(query, [experienceId]);
 
-		if (!experiences || experiences.length === 0) {
-			const err = new Error('experiencia no encontrada');
-			err.code = 404;
-			throw err;
-		}
+	
 
 		const reviewsQuery = 'SELECT * FROM review WHERE experience_id = ?';
 		const [reviews] = await database.pool.query(reviewsQuery, [experienceId]);
@@ -120,8 +138,10 @@ async function getScore(req, res) {
 
 module.exports = {
 	getExperiences,
-	getExperiencesByUserId,
+	getExperience,
+	getExperiencesUserId,
 	getExperiencesByLocation,
+	getExperiencesByTipo,
 	createExperience,
 	getScore
 };

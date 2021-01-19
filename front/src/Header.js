@@ -1,10 +1,7 @@
 import { useUser } from './user/UserContext';
 import './Header.css'
 import { Link } from 'react-router-dom';
-import Acordeon from './Acordeon';
-import Auth from './user/Auth';
 import logo from './images/logo.png';
-import CreateExperience from './routes/CreateExperience';
 
 function Header() {
       
@@ -16,10 +13,8 @@ function Header() {
     return(
         <div className='App-header'>
 
-         <img src={logo} className="App-logo" alt="logo" /> 
-        <Acordeon>
-            <Auth />
-        </Acordeon>
+          <Link to="/"><img src={logo} className="App-logo" alt="logo" /> </Link>
+          <Link to="/login"><button>LOGIN</button></Link>
     </div> 
      
     )
@@ -29,14 +24,24 @@ function Header() {
       <div>
          <Link to="/"><img src={logo} className="App-logo" alt="logo" /></Link>
       </div>
-      {me &&
-        <div className ='userName'>
-           <div>{me.name}</div> 
-        </div>
-      }
-       <div>
-         <Link to="./routes/CreateExperience">
-         ➕
+      <div className ='userName'>
+        <Link to="/experience/user/">
+          <button>{me.name}</button>
+          </Link>
+      </div>
+       <div className ='crear-experience'>
+         <Link to="/experience/new">
+         <button>CREAR</button>
+         </Link>
+      </div>
+      <div className ='buscar'>
+         <Link to="/location">
+         <button>¿Donde?</button>
+         </Link>
+      </div>
+      <div className ='buscarTipo'>
+         <Link to="/tipo">
+         <button>¿Tipo?</button>
          </Link>
       </div>
       

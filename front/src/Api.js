@@ -1,10 +1,12 @@
 import useFetch from './useFetch'
 
 
-
 export const useExperienceList = () => useFetch('http://localhost:3000/api/experiences')
 
-export const useExperienceById = (id) => useFetch('http://localhost:3000/api/experiences/' + id)
+export const useExperienceById = () => useFetch('http://localhost:3000/api/experiencesbyuser/')
+export const useExperienceByLocation = (id) => useFetch('http://localhost:3000/api/experiences/bylocation/' + id)
+export const useExperienceByTipo = (id) => useFetch('http://localhost:3000/api/experiences/bytipo/' + id)
+
 export const useUserById = (id) => useFetch('http://localhost/api/users/' + id)
 
 
@@ -29,26 +31,28 @@ export const register = async (username, password, email) => {
   return data
 }
 
-export const createCommentary = async (token, id, newCommentary) => {
-  const ret = await fetch('http://localhost:3000/api/commentary', {
+export const createReview = async (token, {experienceId, rating, text }) => {
+ 
+  const ret = await fetch('http://localhost:3000/api/reviews/newReview/'+ experienceId, {
     method: 'Post',
     headers: {
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(newCommentary)
+    body: JSON.stringify({rating,text})
   })
-  const commentary = await ret.json()
-  return commentary
+  const review = await ret.json()
+  return review
 }
 
-export const createExperience = async (token,experienceId, nombre, tipo, imagen, descripcion) => {
+export const createExperience = async (token, { nombre, tipo, imagen,localizacion, descripcion }) => {
 
   const fd = new FormData()
-  fd.append('experienceId', experienceId);
+  // fd.append('experienceId', experienceId);
   fd.append('nombre', nombre);
   fd.append('tipo', tipo);
   fd.append('imagen', imagen);
+  fd.append('localizacion', localizacion);
   fd.append('descripcion', descripcion);
 
   const ret = await fetch('http://localhost:3000/api/experiences/create', {
@@ -72,7 +76,7 @@ export const editExperience = async (token, id, newExperience) => {
   const data = await ret.json()
   return data
 }
-
+/* 
 export const deleteExperience = async (id) => {
   const ret = await fetch('http://localhost:3000/api/experiences/deteleExperiences', {
       method: 'DELETE',
@@ -81,4 +85,4 @@ export const deleteExperience = async (id) => {
   })
   const data = await ret.json();
   return data;
-}
+} */

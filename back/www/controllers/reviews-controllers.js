@@ -4,10 +4,8 @@ const { database } = require('../infrastructure');
 const Joi =require('joi');
 
 async function createReview(req, res) {
-
   try {
     const {experienceId} = req.params;
-    
     const { id } = req.auth;
     const { rating, text } = req.body;
 
@@ -47,11 +45,8 @@ async function createReview(req, res) {
 
 
 async function getReviewsByUserId(req, res) {
-  
-
   try {
     const { userId } = req.params;
-    
     if (Number(userId) !== req.auth.id) {
       const err = new Error('El usuario no tiene permisos');
       err.code = 403;

@@ -20,12 +20,12 @@ async function getUserById(id) {
   }
 }
 
-async function Login(user) {
+async function Login(email, password) {
    
-    const email = user.email;
-    const password = user.password;
+    // const email = user.email;
+    // const password = user.password;
 
-    const query = 'SELECT * FROM users WHERE email = '+email;
+    const query = 'SELECT * FROM users WHERE email = ?';
     const [rows] = await database.pool.query(query, [email]);
 
     if (!rows || !rows.length) {
@@ -38,7 +38,7 @@ async function Login(user) {
 
     
 
-    const isValidPassword = await bcrypt.compare(password, user.password);
+    const isValidPassword = await bcrypt.compare(password,users.password);
 
     if (!isValidPassword) {
       const error = new Error('El password no es válido');
@@ -47,7 +47,7 @@ async function Login(user) {
     }
 
   
-    const tokenPayload = { id: users.id, role: users.role };
+    const tokenPayload = { id: users.id };
 
     const token = jwt.sign(
       tokenPayload,

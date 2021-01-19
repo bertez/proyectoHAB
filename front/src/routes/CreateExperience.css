@@ -1,23 +1,43 @@
 .create-experience {
     border: 1px solid #ccc;
+    text-decoration: none;
+    width: 90%;
+    margin: 0 auto;
+    
   }
-  
+  .create-experience h3 {
+    text-align: center;
+  }
+  .imagen{
+    text-align: center;
+  }
   .create-experience label {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    
+    text-align: center;
+    margin-top: 20px;
+   
   }
   
   .create-experience button {
     display: block;
     margin: auto;
+    padding: 20px;
+  }
+ 
+  .descripcion{
+    height: 150px;
   }
 
   .subir-imagen{
+    text-align: center;
     display: flex;
     justify-content: center;
     background-size: cover;
     align-items: center;
-    
+    margin: auto;
     width: 100px;
     height: 100px;
     border: 1px solid black;

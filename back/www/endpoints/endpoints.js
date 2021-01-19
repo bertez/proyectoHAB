@@ -112,6 +112,7 @@ async function login(req, res) {
         res.send(login)
     }
     catch (err) {
+        // console.log(res)
         res.status(500);
         res.send({ error: err.message });
     }

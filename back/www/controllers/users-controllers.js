@@ -6,7 +6,7 @@ const { database } = require('../infrastructure');
 
 async function getUsers(req, res) {
   try {
-    const [users] = await database.pool.query('SELECT * FROM users');
+    const [users] = await database.pool.query('SELECT name FROM users');
     res.send(users);
     
   } catch (err) {
@@ -14,6 +14,19 @@ async function getUsers(req, res) {
     res.send({ error: err.message });
   }
 }
+
+async function getByUserId(req, res) {
+	try {
+	  const { Id } = req.params;
+	  const query = 'SELECT * FROM users WHERE id = ?';
+	  const [user] = await database.pool.query(query,[Id] );
+	  res.send(user);
+  
+	} catch (err) {
+	  res.status(err.code || 500);
+	  res.send({ error: err.message });
+	}
+  }
 
 
 
@@ -48,7 +61,7 @@ async function login(req, res) {
     }
 
   
-    const tokenPayload = { id: user.id, role: user.role };
+    const tokenPayload = { id: user.id,  };
 
     const token = jwt.sign(
       tokenPayload,
@@ -56,7 +69,7 @@ async function login(req, res) {
       { expiresIn: '30d' },
     );
     
-    res.send({ token });
+    res.send({ token, name: user.name });
 
   } catch (err) {
     res.status(err.code || 500);
@@ -93,10 +106,17 @@ async function register(req, res) {
 
     const passwordHash = await bcrypt.hash(password, 10);
     const insertQuery = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)';
-    await database.pool.query(insertQuery, [name, email, passwordHash]);
+    const ret = await database.pool.query(insertQuery, [name, email, passwordHash]);
+    const id = ret[0].insertId;
 
-    res.status(201);
-    res.send();
+    const tokenPayload = { id: id };
+    const token = jwt.sign(
+      tokenPayload,
+      process.env.JWT_SECRET,
+      { expiresIn: '30d' },
+    );
+    
+    res.send({ token, name });
 
   } catch (err) {
     res.status(err.code || 500);
@@ -107,6 +127,7 @@ async function register(req, res) {
 module.exports = {
   
   getUsers,
+  getByUserId,
   login,
   register
 };

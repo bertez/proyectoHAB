@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useExperienceList } from '../Api'
 import './Experiencias.css'
 
@@ -5,34 +6,25 @@ import './Experiencias.css'
 function Experiencias() {
 
   const experiences = useExperienceList();
-  
-  if(!experiences) return "loading"
+
+  if (!experiences) return "loading"
 
   return (
-      <div >
-        {experiences.map(experience => 
-        <div className="experiencias">
-          <div 
-          key={experience}
-          >
-             <h2> {experience.nombre}</h2>
-             <div
-             className = "imagen"
-             style={{ backgroundImage: 'url(' + experience.imagen + ')' }}>
-
-             </div>
-             <div className = "descripcion-exp">
-               <p>{experience.descripcion}</p>
-             </div>
-             
+    <div className="experiencias">
+      {experiences.map(experience =>
+        <Link to={'/experience/' + experience.id}
+          key={experience.id}>
+          <div
+            className="imagen"
+            style={{ backgroundImage: 'url(' + experience.imagen + ')' }}>
+            <h2> {experience.nombre}</h2>
           </div>
-          </div>
-          )}
-      </div>
+        </Link>
+      )}
+    </div>
   )
+}
 
-  }
-  
 
 
 export default Experiencias;
