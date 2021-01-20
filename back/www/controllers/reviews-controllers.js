@@ -23,7 +23,6 @@ async function createReview(req, res) {
       err.code = 404;
       throw err;
     }
-    
     const insertQuery = 'INSERT INTO review (user_id, experience_id, rating, text) VALUES (?, ?, ?, ?)';
     
     const [result] = await database.pool.query(insertQuery, [id, experienceId, rating, text]);
@@ -42,19 +41,24 @@ async function createReview(req, res) {
     res.send({ error: err.message });
   }
 }
+async function getReviews(req, res) {
+	try {
+		const query = 'SELECT * FROM review';
+		const [reviews] = await database.pool.query(query);
+		res.send(reviews);
+	} catch (err) {
+		res.status(500);
+		res.send({ error: err.message });
+	}
+};
 
 
 async function getReviewsByUserId(req, res) {
   try {
-    const { userId } = req.params;
-    if (Number(userId) !== req.auth.id) {
-      const err = new Error('El usuario no tiene permisos');
-      err.code = 403;
-      throw err;
-    }
+    const { id } = req.auth;
 
     const query = 'SELECT * FROM review WHERE user_id = ?';
-    const [reviews] = await database.pool.query(query,[userId] );
+    const [reviews] = await database.pool.query(query,[id] );
     res.send(reviews);
 
   } catch (err) {
@@ -125,6 +129,7 @@ async function deleteReview(req, res) {
 module.exports = {
   createReview,
   getReviewsByUserId,
+  getReviews,
   updateReview,
   deleteReview
 };

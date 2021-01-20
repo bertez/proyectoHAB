@@ -3,11 +3,14 @@ import useFetch from './useFetch'
 
 export const useExperienceList = () => useFetch('http://localhost:3000/api/experiences')
 
-export const useExperienceById = () => useFetch('http://localhost:3000/api/experiencesbyuser/')
+export const useExperienceById = (id) => useFetch('http://localhost:3000/api/experiences/'+id)
+export const useExperienceByUserId = () => useFetch('http://localhost:3000/api/experiencesbyuser')
 export const useExperienceByLocation = (id) => useFetch('http://localhost:3000/api/experiences/bylocation/' + id)
 export const useExperienceByTipo = (id) => useFetch('http://localhost:3000/api/experiences/bytipo/' + id)
 
 export const useUserById = (id) => useFetch('http://localhost/api/users/' + id)
+
+export const useReviewsList = () => useFetch('http://localhost:3000/api/reviews')
 
 
 export const login = async (email, password) => {

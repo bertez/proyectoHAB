@@ -1,0 +1,26 @@
+.reviews{
+    display: flex;
+    flex-flow: row wrap;
+    
+    align-items: center;
+    min-width: 200px;
+    max-width: 700px;
+    border: 1px solid rgb(172, 50, 50);
+    border-radius: 30px;
+    padding: 10px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+    
+}
+
+.rating{
+    border: 2px solid blue;
+    padding: 4px;
+    max-width: 30px;
+    margin-right: 20px;
+}
+.text-review{
+    text-align: left;
+}

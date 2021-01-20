@@ -55,7 +55,8 @@ app.post('/api/experiences/create', validateAuthorization, upload.single('imagen
 
 //app.get('/api/reviews/:userId', validateAuthorization, endPoints.getReviewsByUserId)
 //app.post('/api/reviews/create', endPoints.createReview);
-app.get('/api/reviews/:userId', validateAuthorization, reviewsControllers.getReviewsByUserId);
+app.get('/api/reviews', validateAuthorization, reviewsControllers.getReviews);
+app.get('/api/reviewsbyuser', validateAuthorization, reviewsControllers.getReviewsByUserId);
 app.post('/api/reviews/newReview/:experienceId', validateAuthorization, reviewsControllers.createReview);
 app.put('/api/reviews/:reviewId', validateAuthorization, reviewsControllers.updateReview);
 app.delete('/api/reviews/deleteReview', validateAuthorization, reviewsControllers.deleteReview)

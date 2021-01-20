@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { Redirect, useHistory } from 'react-router-dom';
 import { createReview } from '../Api'
 import { useUser } from '../user/UserContext'
-//import './CreateReview.css'
+import './CreateReview.css'
 
-function CreateReview({experienceId} ) {
+function CreateReview({experienceId, refresh} ) {
   const history = useHistory()
   const [text, setText] = useState('')
   const [rating, setRating] = useState(1)
@@ -14,7 +14,8 @@ function CreateReview({experienceId} ) {
   const handleSubmit = async e => {
     e.preventDefault()
     const review = await createReview(me.token, { experienceId ,rating, text })
-    history.push('/review/' + review.id)
+    //history.push('/review/' + review.id)
+    refresh()
   }
 
   return (

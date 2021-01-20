@@ -1,9 +1,10 @@
-.buscar{
+.buscarTipo{
     text-align: center;
     padding: 40px;
+    
 }
 
-.buscar select{
+.buscarTipo select{
     margin-top: 20px;
-    
+    padding: 10px;
 }

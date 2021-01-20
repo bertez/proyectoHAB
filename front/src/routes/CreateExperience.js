@@ -2,6 +2,8 @@ import { useState, useRef } from 'react'
 import { Redirect, useHistory } from 'react-router-dom';
 import { createExperience } from '../Api'
 import { useUser } from '../user/UserContext'
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import './CreateExperience.css'
 
 
@@ -36,13 +38,9 @@ function CreateExperience() {
 
     return (
         <div className="create-experience">
-
-            <h3>crear :</h3>
-
             <form onSubmit={handleSubmit}>
-                <div className="imagen">
-                    imagen:
-                <div
+                <div >
+                    <div
                         className="subir-imagen"
                         onClick={handleClick}
                         style={style}
@@ -60,13 +58,11 @@ function CreateExperience() {
                 </div>
 
                 <label>
-                    Nombre:
-          <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} />
+                    <input type="text" placeholder="título ..." value={nombre} onChange={e => setNombre(e.target.value)} />
                 </label>
                 <label>
-                    Tipo:
                     <select value={tipo} onChange={e => setTipo(e.target.value)}>
-                        <option value="" hidden>Selecciona...</option>
+                        <option value="" hidden>tipo ...</option>
                         <option value="Naturaleza">Naturaleza</option>
                         <option value="Gastronomia">Gastronomia</option>
                         <option value="Senderismo">Senderismo</option>
@@ -76,13 +72,12 @@ function CreateExperience() {
                         <option value="Fiesta">Fiesta</option>
                         <option value="Cultural">Cultural</option>
                         <option value="Buceo">Buceo</option>
-                       
+
                     </select>
                 </label>
                 <label>
-                    Comunidad:
                     <select value={localizacion} onChange={e => setLocalizacion(e.target.value)}>
-                        <option value="" hidden>Selecciona...</option>
+                        <option value="" hidden>Comunidad ...</option>
                         <option value="Andalucí­a">Andalucía</option>
                         <option value="Aragón">Aragón</option>
                         <option value="Asturias">Asturias</option>
@@ -105,13 +100,9 @@ function CreateExperience() {
                     </select>
                 </label>
                 <label>
-                    Descripcion:
-          <textarea className="descripcion" type="text" value={descripcion} onChange={e => setDescripcion(e.target.value)} />
+                    <ReactQuill className="descripcion" defaultValue={descripcion} onChange={setDescripcion} />
                 </label>
-
-
                 <button>Guardar</button>
-
             </form>
         </div>
     );

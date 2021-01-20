@@ -42,7 +42,7 @@ function App() {
           <Route path='/tipo/:id?'>
             <BuscarTipo/>
           </Route>
-            <Route path='/experience/user/'>
+            <Route path='/experiencebyuser/'>
             <UserExperience/>
           </Route>  
           <Route path='/' exact>

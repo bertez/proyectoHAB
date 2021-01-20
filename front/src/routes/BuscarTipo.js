@@ -1,5 +1,7 @@
 import { useHistory, useParams } from "react-router-dom";
 import ResultTipo from './ResultTipo'
+import Experiencias from './Experiencias'
+import './BuscarTipo.css'
 
 
 const BuscarTipo = () => {
@@ -12,6 +14,7 @@ const BuscarTipo = () => {
 
     return (
         <div>
+        <div className="buscarTipo">
             <select value={id} onChange={handleChange}>
                 <option value="" hidden>Selecciona...</option>
                 <option value="Naturaleza">Naturaleza</option>
@@ -26,6 +29,8 @@ const BuscarTipo = () => {
 
             </select>
             {id && <ResultTipo id={id} />}
+        </div>
+        <Experiencias/>
         </div>
     )
 }

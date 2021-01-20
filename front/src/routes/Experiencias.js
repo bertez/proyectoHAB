@@ -15,12 +15,13 @@ function Experiencias() {
         <Link to={'/experience/' + experience.id}
           key={experience.id}>
           <div
-            className="imagen"
+            className="img-experience"
             style={{ backgroundImage: 'url(' + experience.imagen + ')' }}>
-            <h2> {experience.nombre}</h2>
+            <div className="experiencia-nombre"> {experience.nombre}</div>
           </div>
         </Link>
       )}
+      
     </div>
   )
 }

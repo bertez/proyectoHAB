@@ -1,0 +1,32 @@
+.experiencia{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px;
+    border: 3px solid rgb(241, 129, 129);
+    border-radius: 40px;
+    padding: 20px;
+    background-color: rgba(168, 200, 206, 0.849);
+}
+.nombre{
+    text-align: center;
+    padding: 10px;
+    color: white;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.imagen{
+    width: 250px;
+    height: 250px;
+    border: 5px solid white;
+    border-radius: 60px;
+    margin-bottom: 40px;
+    
+}
+.descripcion-exp{
+    width: 800px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
